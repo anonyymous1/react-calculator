@@ -1,0 +1,81 @@
+import React, { Component } from 'react';
+
+class Calculator extends Component {
+    constructor(){
+        super()
+        this.state ={
+            num1:0,
+            num2:0,
+            math: "",
+            results: 0
+        }
+    }
+
+    // setNum = (e) => {
+    //     const input = e.target.value
+    //     this.setState({num1: input})
+    // }
+
+    math = (e) => {
+        const type = e.target.value
+        this.setState({ math: type})
+    }
+
+    setNum = (e, num) => {
+        this.setState({ [num]: e.target.value});
+    }
+
+    equals = () => {
+        let num1 = parseInt(this.state.num1)
+        let num2 = parseInt(this.state.num2)
+        if (this.state.math === "+"){
+            this.setState({results: num1 + num2})
+        }
+        if (this.state.math === "-"){
+            this.setState({results: num1 - num2})
+        }
+        if (this.state.math === "*"){
+            this.setState({results: num1 * num2})
+        }
+        if (this.state.math === "/"){
+            this.setState({results: num1 / num2})
+        }
+        if (this.state.math === "Choose"){
+            this.setState({results: "Please Choose an Option"})
+        }
+    }
+
+    render(){
+        return(
+            <div className="container">
+                <h1>Add with React!</h1>
+
+                <div className="add">
+                    
+                    <input type="number" name="num1" placeholder="Enter your first number" value={this.state.num1} onChange={ (e) => this.setNum(e, "num1")} />
+                    
+                    <form>
+                        <label>
+                            <select onChange={this.math}>
+                                <option>Choose</option>
+                                <option>+</option>
+                                <option>-</option>
+                                <option>*</option>
+                                <option>/</option>
+                            </select>
+                        </label>
+                    </form>
+                    
+                    <input type="number" name="num2" placeholder="Enter your second number" value={this.state.num2} onChange={ (e) => this.setNum(e, "num2")} />
+                    
+                    <button onClick={this.equals}>=</button>
+                    
+                    <h3>{this.state.results}</h3>
+                
+                </div>
+            </div>
+        )
+    }
+}
+
+export default Calculator;
